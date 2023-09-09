@@ -1,0 +1,7 @@
+
+Solution:
+Select project_id, sum(experience_years)/count(project_id) as average_years
+from Project as p
+left join Employee as e
+On p.employee_id = e.employee_id
+Group by project_id
