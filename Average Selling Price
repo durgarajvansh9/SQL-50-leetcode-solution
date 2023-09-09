@@ -1,0 +1,39 @@
+Detailed explanation || Step by Step
+Intuition
+<b>A beginner friendly answer is written by following basic concepts step by step.</b>
+
+Approach
+Looking at the result table we write the basic select statement
+SELECT product_id, ____ as average_price FROM ___
+
+AS average_price should be rounded to 2 decimal places
+SELECT p.product_id, round(_____,2) as average_price
+
+Now as evident from Explanation given, the two - price and units, required to calculate average_price are from different tables hence we need to join these tables (as product_id is common in these two tables we join on product_id)
+SELECT p.product_id, round(_____,2) as average_price
+FROM Prices p INNER JOIN UnitsSold u
+ON p.product_id = u.product_id
+
+Now to calculate average_price, we need to add priceunits of all the products (of that particulat product_id) and then divide it by the sum of all its units
+This is formulated as:SUM(p.priceu.units)/SUM(u.units)
+using SUM() function
+
+for the calculation of average_price we first need to determine the price per unit based on the purchase date
+Hence modifying JOIN staement by adding the following condition
+u.purchase_date BETWEEN p.Start_date and p.end_date
+
+Now finally to have one product_id only once in the result table and calculate average_price for each product we: Group by product_id
+
+Thus the final code becomes
+SELECT p.product_id, round(SUM(p.price*u.units)/SUM(u.units),2) as average_price
+FROM Prices p INNER JOIN UnitsSold u
+ON p.product_id = u.product_id AND u.purchase_date BETWEEN p.Start_date and p.end_date
+GROUP BY p.product_id
+
+In the above code Aliases () are used as product_id belongs to both the tables and without them it is difficult to judge which table's product_id is being referred to. (i.e product_id will be ambiguous)
+
+Solution:
+Select p.product_id, round((sum(p.price*u.units)/sum(u.units)),2)
+from Prices p
+Inner Join UnitsSold u
+On p.product_id = u.product_id and u.purchase_date between p.Start_date and p.end_date
