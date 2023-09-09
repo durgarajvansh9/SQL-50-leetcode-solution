@@ -1,5 +1,27 @@
+ntuition
+A beginner friendly answer is written by following basic concepts step by step.
 
-Solution:
+Approach
+Looking at the result table we write the basic select statement
+SELECT project_id, ____ as average_years FROM ___
+
+AS average_price should be rounded to 2 decimal places
+SELECT project_id, round(_____,2) as average_years
+
+Now as evident from Explanation given, the experience and project_id, required to calculate average_years are from different tables hence we need to join these tables (as emplyoyee_id is common in these two tables we join on employee_id)
+SELECT project_id, round(_____,2) as average_years
+FROM Projects p left JOIN Employee as e
+ON p.employee_id = e.employee_id
+
+Now to calculate average_years, we need to add experience of all the employee (of that particulat project_id) and then divide it by the count of all project_id
+This is formulated as:sum(experience_years)
+
+Now to calculate no. of pople in each project we must count the employees with same project_id by :count(project_id)
+
+now count() function with the GROUP BY clause is used to count the data which were grouped on a project_id attribute of the table as:
+Group by proJECTt_id
+
+Thus the final code becomes:
 Select project_id, round(sum(experience_years)/count(project_id)2,) as average_years
 from Project as p
 left join Employee as e
