@@ -33,7 +33,8 @@ GROUP BY p.product_id
 In the above code Aliases () are used as product_id belongs to both the tables and without them it is difficult to judge which table's product_id is being referred to. (i.e product_id will be ambiguous)
 
 Solution:
-Select p.product_id, round((sum(p.price*u.units)/sum(u.units)),2)
+Select p.product_id, round((sum(p.price*u.units)/sum(u.units)),2) as average_price
 from Prices p
 Inner Join UnitsSold u
 On p.product_id = u.product_id and u.purchase_date between p.Start_date and p.end_date
+group by p.product_id
