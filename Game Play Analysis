@@ -1,0 +1,23 @@
+Intuition
+To calculate the fraction of players who logged in again on the day after their first login, you need to count the number of players who have their first login date followed by a consecutive login on the next day. Then, you divide this count by the total number of distinct players.
+
+Approach
+We want to calculate the fraction of players who logged in again on the day after their first login. To do this, we need to count two things: the number of players who logged in on consecutive days and the total number of players.
+
+To count the number of players who logged in on consecutive days, we need to find the first login date for each player and check if there is a login on the day after their first login.
+
+We use a subquery to calculate the total number of distinct players in the Activity table. This gives us the denominator for calculating the fraction.
+
+In the main query, we filter the rows where the player's ID and the date of the event (after subtracting 1 day) match the player's first login date. This ensures that we only consider players who logged in on consecutive days.
+
+We then count the distinct player IDs in the filtered rows to get the numerator for calculating the fraction.
+
+Finally, we divide the numerator by the denominator and round the result to 2 decimal places using the ROUND function.
+Code:
+SELECT ROUND(SUM(login)/COUNT(DISTINCT player_id), 2) AS fraction
+FROM (
+  SELECT
+    player_id,
+    DATEDIFF(event_date, MIN(event_date) OVER(PARTITION BY player_id)) = 1 AS login
+  FROM Activity
+) AS t
