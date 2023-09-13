@@ -1,0 +1,15 @@
+Approach
+You start with the Teacher table.
+
+You use the GROUP BY clause to group the records by the teacher_id column. This means that rows with the same teacher_id will be grouped together.
+
+Within each group (which corresponds to a specific teacher), you use the COUNT(DISTINCT subject_id) function to count the distinct subject IDs. The DISTINCT keyword ensures that each subject ID is counted only once for each teacher, even if there are multiple rows with the same subject ID for that teacher.
+
+The SELECT statement selects the teacher_id and the count of distinct subject IDs (cnt) for each teacher.
+
+The DISTINCT keyword in the SELECT statement ensures that only distinct teacher IDs are included in the result.
+
+Solution:
+select teacher_id,count(distinct subject_id) as cnt
+from Teacher
+group by teacher_id
