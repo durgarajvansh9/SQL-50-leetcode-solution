@@ -1,14 +1,19 @@
-Approach
-You start with the Teacher table.
+Looking at the result table we write the basic select statement
+SELECT teacher_id, ____ as cnt FROM Teacher
 
-You use the GROUP BY clause to group the records by the teacher_id column. This means that rows with the same teacher_id will be grouped together.
+Now we have to find the number of unique subjects each teacher teaches in the university, we can do it by finding the number of distinct subject_id's in the table.
+select teacher_id,count(distinct subject_id) as cnt
 
-Within each group (which corresponds to a specific teacher), you use the COUNT(DISTINCT subject_id) function to count the distinct subject IDs. The DISTINCT keyword ensures that each subject ID is counted only once for each teacher, even if there are multiple rows with the same subject ID for that teacher.
+Now we have to count the how many unique subject_id's are there
+select teacher_id,count(distinct subject_id) as cnt
+from Teacher
 
-The SELECT statement selects the teacher_id and the count of distinct subject IDs (cnt) for each teacher.
+Now finally to have one teacher_id only once in the Teacher table we: Group by teacher_id
 
-The DISTINCT keyword in the SELECT statement ensures that only distinct teacher IDs are included in the result.
-
+Thus the final code becomes
+select teacher_id,count(distinct subject_id) as cnt
+from Teacher
+group by teacher_id
 Solution:
 select teacher_id,count(distinct subject_id) as cnt
 from Teacher
