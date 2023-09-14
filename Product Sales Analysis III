@@ -1,0 +1,4 @@
+Select product_id, quantity,year as first_year, price
+FROM(SELECT product_id, year, quantity, price, RANK() OVER (PARTITION BY product_id ORDER BY year) as rank
+        FROM Sales) AS source
+WHERE rank = 1;
