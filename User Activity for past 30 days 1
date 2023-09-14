@@ -1,5 +1,22 @@
-Solution
-select distinct activity_date as day, count(distinct user_id) as active_users
-from Activity 
-where activity_date> "2019-06-27" and activity_date<= "2019-07-27"
-group by activity_date
+Approach
+Looking at the result table we write the basic select statement:
+SELECT ____ as day, ____ as active_users FROM Activity
+Now we get days by selecting different activity date and active_users by counting distinct user_id's that were active on that day:
+SELECT distinct activity_date as day, count(distinct user_id) as active_users FROM Activity
+
+Now as per question we'll have to specify date upto which we want to calculate users:
+WHERE activity_date> "2019-06-27" and activity_date<= "2019-07-27"
+
+Now finally to have one activity_date only once in the result table: Group by activity_date
+
+Thus the final code becomes
+SELECT distinct activity_date as day, count(distinct user_id) as active_users
+FROM Activity
+WHERE activity_date> "2019-06-27" and activity_date<= "2019-07-27"
+GROUP BY activity_date
+
+Code
+SELECT distinct activity_date as day, count(distinct user_id) as active_users
+FROM Activity 
+WHERE activity_date> "2019-06-27" and activity_date<= "2019-07-27"
+GROUP BY activity_date
