@@ -1,3 +1,19 @@
+Approach
+Select employee_id, department_id of all those employees whose is in only one department:
+SELECT employee_id, department_id
+FROM Employee
+GROUP BY employee_id
+HAVING count(employee_id) = 1
+
+Then select employee_id, department_id of all those employee whose primary_flag is 'Y' by:
+SELECT employee_id,department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+
+Now join both solution using UNION.
+
+Code
+# Write your MySQL query statement below
 SELECT employee_id, department_id
 FROM Employee
 GROUP BY employee_id
