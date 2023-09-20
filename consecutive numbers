@@ -1,0 +1,9 @@
+select distinct i1.num as ConsecutiveNums
+from logs i1 
+join 
+logs i2
+on i1.num = i2.num
+join
+logs i3
+on i2.num = i3.num
+where i2.id = i1.id+1 and i3.id = i2.id+1 and i1.num = i2.num and i2.num = i3.num
